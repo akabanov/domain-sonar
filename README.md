@@ -1,6 +1,6 @@
 # Taken Domain Sonar
 
-## About
+## App description
 
 ### What the App Does
 
@@ -37,121 +37,48 @@ To avoid getting blocked, the app automatically throttles its own requests, addi
 
 ## Development Roadmap
 
-This project will be developed in milestones to ensure a structured and
-efficient workflow.
+### TLD source
 
-### Milestone 1: Foundational UI & Project Setup
+Create a GitHub Action (manual/weekly) to build the TLD list from 
+https://data.iana.org/TLD/tlds-alpha-by-domain.txt.as as a JSON array into `tlds.json`  
+Load `tlds.json` from the app JavaScript code.
 
-1. **Project Structure:** Set up the initial `index.html`, `style.css`, and
-   `app.js` files.
-2. **Ergonomic Layout:**
+### App Layout
 
-* Implement a clean, minimalistic, single-column layout.
-* Create a prominent, centered input field for the base name (e.g.,
-  `birdcorner`).
+Clean, utilitarian, minimalistic, single-column responsive layout.
+App icon and name in the app bar: "Taken Domain Sonar"
+SEO-optimized app description at the top (dense version from this readme).
+Static helper text: "Struggling to come up with a name? Try these generators:," with links referencing the [Random name generators](#random-name-generators) section below.
+Prominent, centered input field for the base name (e.g., `birdcorner`).
+Inline input validation: disallow empty/invalid characters; show subtle error styling (e.g., soft red border).
+Footer: `© {current_year} Bird Corner Apps` linking to https://www.birdcorner.app.
+Subtle UI transitions for result appearance, hover states, and history expansion.
 
-3. **Footer:** Footer content:
-   `© {current_year} Bird Corner Apps` with a hyperlink to
-   `https://www.birdcorner.app`.
+### Domain search implementation
 
-4. **Inline Validation:** Implement basic validation on the input field to
-   disallow empty strings or invalid characters, with subtle visual feedback (
-   e.g., a soft red border).
+Implement DNS-over-HTTPS (DoH) provider rotation (e.g., Google, Cloudflare) with correct headers (`Accept: application/dns-json`).
+Generous throttling between DNS queries (≤ ~70 qps per provider) to avoid rate limits.
+Manage UI state during checks: disable active elements, like input and history while running; re-enable on completion.
+Show progress UI: progress bar, live status like `Checking birdcorner.com... `, and current count `Checked N domains of M`.
 
-### Milestone 2: TLD List Generation Script
+### Result display
 
-1. **Create a Node.js Script:** Develop a GitHub action (triggered manually
-   or once a week if possible)
+Prominent summary verdict at the top of search results with three states (e.g., "greenfield", "mixed", "crowded"), color-coded from green to orange based on availability density.
+Two sections with counts — "Already In Use" (expanded) and "Potentially Available" (collapsed).
+For "Already In Use" entries, link to `https://[domain]` (primary) and `http://[domain]` (secondary).
+Display tip under results: "Tip: Some of these domains may be parked or for sale and not actively in use."
+Add disclaimer: "Heads up: A 'Potentially Available' status is a good indicator a domain is not in use, but not a 100% guarantee. Final confirmation is with the registrar."
+Between the sections there's an invitation: "Check pricing options at your favorite registrar" with the links to top registrars: [Namecheap](https://www.namecheap.com/), [GoDaddy](https://www.godaddy.com/), [Porkbun](https://porkbun.com/), [Dynadot](https://www.dynadot.com/), [Name.com](https://www.name.com/).
 
-2. **Fetch Authoritative Data:** The action must fetch the official list of TLDs
-   from an authoritative source (e.g., the IANA TLD list at
-   `https://data.iana.org/TLD/tlds-alpha-by-domain.txt`).
+### Search history
 
-3. **Generate JSON:** The action will parse the fetched text file and save the
-   TLDs into a clean JSON array in a `tlds.json` file within the project's
-   public directory. If `tlds.json` is changed, the action must push the changes
-   back to GitHub.
+Persist search history in `localStorage` with name and timestamp.
+Show the 3 most recent searches by default; provide "Show all" to expand when >3 exist.
+Allow deleting individual history items (permanent removal from `localStorage`).
 
-### Milestone 3: Core DNS Checking Logic
+### Final QA
 
-1. **Load TLDs:** In `app.js`, fetch and load the `tlds.json` file.
-
-2. **Implement DoH Rotation:**
-
-* Use at least 2-3 reliable, free DNS-over-HTTPS (DoH) providers (
-  e.g., Google, Cloudflare).
-* Implement the core `checkDns` function that rotates through these providers
-  for each query to distribute the load. Remember to handle provider-specific
-  requirements, like HTTP headers (`Accept: application/dns-json`).
-
-3. **Generous Throttling:** Introduce a delay between
-   each DNS query to prevent any possibility of being rate-limited (no more
-   than 70 queries per second per provider). This ensures
-   stability and gives the user time to view on-page content like ads.
-
-### Milestone 4: Interactive UI State & Animations
-
-1. **State Management:**
-
-* When a search is initiated, disable the main input field and the search
-  history section to prevent new actions.
-* Re-enable these elements once the check is complete.
-
-2. **Progress Animation:**
-
-* Implement a progress bar that updates as the checks proceed.
-* Display a status message like: `Checking birdcorner.com...`
-* Upon completion, show the total number of domains checked (e.g.,
-  `Checked 1578 domains`).
-
-3. **Subtle Animations:** Add smooth, subtle CSS transitions for UI elements,
-   such as when results appear, buttons are hovered over, or history expands.
-
-### Milestone 5: Results Display
-
-1. **Categorize Results:** Create two distinct, clearly labeled sections for the
-   output:
-
-* **"Already In Use"**: Use this for domains that have DNS records.
-  (expanded by default; show the number of results in the title)
-* **"Potentially Available"**: Use this enhanced wording for domains that
-  returned no DNS record. (collapsed by default; show the number of results in
-  the title)
-
-2. **"Already In Use" Functionality:**
-
-* Make each domain a clickable link. The primary link should go to
-  `https://[domain-name]`.
-* Add a smaller, secondary link for `http://[domain-name]`.
-* Include a tagline under this section: *"Tip: Some of these domains may be
-  parked or for sale and not actively in use."*
-
-3. **Disclaimer:** Add a clearly visible disclaimer at the bottom of the
-   results: *"Heads up: A 'Potentially Available' status is a good indicator a
-   domain is not in use, but it's not a 100% guarantee. The final confirmation
-   will be with the domain registrar."*
-
-### Milestone 6: Search History
-
-1. **Local Storage:** Use the browser's `localStorage` to persist search history
-   between sessions.
-2. **Store & Display:**
-
-* For each search, store the name and a timestamp.
-* By default, display the 3 most recent searches.
-* If more than 3 exist, add a "Show all" button that expands to show the full
-  history.
-
-3. **User Control:** Add a "delete" icon next to each entry in the history,
-   allowing a user to remove it permanently from `localStorage`.
-
-### Milestone 7: Monetization & Final Polish
-
-1. **SEO Content:** Write and embed the final SEO-optimized marketing
-   description on the main page.
-2. **Final Review:** Conduct a thorough review of the application against all
-   requirements. Test for usability, responsiveness on different screen sizes,
-   and cross-browser compatibility.
+Usability, responsive layout, and cross-browser checks.
 
 ## Extras
 

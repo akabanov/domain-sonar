@@ -33,9 +33,9 @@ To avoid getting blocked, the app automatically throttles its own requests, addi
 * **SEO & Domain Investing:** Quickly identify potentially valuable,
   unregistered domain names.
 
----
+## Specifications
 
-## Development Roadmap
+This is a single-page PWA built with vanilla JavaScript and HTML.
 
 ### TLD source
 
@@ -83,8 +83,6 @@ Usability, responsive layout, and cross-browser checks.
 ## Extras
 
 ### Random name generators
-
-Try random names generators from:
 
 * [Random lists](https://www.randomlists.com/team-names)
 * [Shopify](https://www.shopify.com/tools/business-name-generator)

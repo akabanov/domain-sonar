@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taken Domain Sonar</title>
-    <meta name="description" content="Taken Domain Sonar is a domain name availability checker. Find a unique name for your new business, product, or project by scanning hundreds of TLDs.">
+    <meta name="description"
+        content="Taken Domain Sonar is a domain name availability checker. Find a unique name for your new business, product, or project by scanning hundreds of TLDs.">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icons/icon-192.png"> <!-- Placeholder, will need to generate icons -->
     <meta name="theme-color" content="#ffffff">
 </head>
+
 <body>
     <header class="app-bar">
         <div class="app-bar-content">
@@ -21,19 +24,25 @@
     <main class="container">
         <section class="intro">
             <p>
-                The app is a domain name availability checker. Its core purpose is to solve a common and frustrating problem: finding a unique name for a new business, product, or project that isn't already taken online.
+                The app is a domain name availability checker. Its core purpose is to solve a common and frustrating
+                problem: finding a unique name for a new business, product, or project that isn't already taken online.
             </p>
             <p class="helper-text">
-                Struggling to come up with a name? Try these generators:
+                Need a creativity boost? Try name generators from
                 <a href="https://www.randomlists.com/team-names" target="_blank" rel="noopener">Random lists</a>,
-                <a href="https://www.shopify.com/tools/business-name-generator" target="_blank" rel="noopener">Shopify</a>,
-                <a href="https://www.design.com/business-name-generator/" target="_blank" rel="noopener">Design.com</a>.
+                <a href="https://www.shopify.com/tools/business-name-generator" target="_blank"
+                    rel="noopener">Shopify</a>,
+                <a href="https://www.design.com/business-name-generator/" target="_blank" rel="noopener">Design.com</a>,
+                <a href="https://businessnamegen.com/business-name-generator/" target="_blank"
+                    rel="noopener">BusinessNameGen</a>,
+                <a href="https://alexvoelk.de/generators/game-studio/" target="_blank" rel="noopener">Alex Völk</a>.
             </p>
         </section>
 
         <section class="search-section">
             <div class="input-group">
-                <input type="text" id="domain-input" placeholder="Enter a name (e.g., birdcorner)" autocomplete="off" spellcheck="false">
+                <input type="text" id="domain-input" placeholder="Enter a name (e.g., acme)" autocomplete="off"
+                    spellcheck="false">
                 <button id="search-btn" disabled>Check</button>
             </div>
             <div id="input-error" class="error-message hidden"></div>
@@ -50,30 +59,26 @@
         </section>
 
         <section id="results-section" class="hidden">
-            <div id="verdict" class="verdict"></div>
-            
             <div class="results-group">
-                <h3 class="group-title">Already In Use <span id="taken-count" class="count-badge">0</span></h3>
+                <h3 class="group-title">Taken <span id="taken-count" class="count-badge">0</span></h3>
                 <ul id="taken-list" class="domain-list"></ul>
             </div>
 
             <div class="registrar-promo">
                 <p>Check pricing options at your favorite registrar:</p>
-                <div class="registrar-links">
-                    <a href="https://www.namecheap.com/" target="_blank" rel="noopener">Namecheap</a>
-                    <a href="https://www.godaddy.com/" target="_blank" rel="noopener">GoDaddy</a>
-                    <a href="https://porkbun.com/" target="_blank" rel="noopener">Porkbun</a>
-                    <a href="https://www.dynadot.com/" target="_blank" rel="noopener">Dynadot</a>
-                    <a href="https://www.name.com/" target="_blank" rel="noopener">Name.com</a>
+                <div id="registrar-links" class="registrar-links">
+                    <!-- Links will be injected by JS -->
                 </div>
             </div>
 
-            <div class="results-group">
-                <h3 class="group-title">Potentially Available <span id="available-count" class="count-badge">0</span></h3>
-                <p class="disclaimer">Heads up: A 'Potentially Available' status is a good indicator a domain is not in use, but not a 100% guarantee. Final confirmation is with the registrar.</p>
+            <details class="results-group" id="available-group">
+                <summary class="group-title">Potentially Available <span id="available-count"
+                        class="count-badge">0</span></summary>
+                <p class="disclaimer">Heads up: A 'Potentially Available' status is a good indicator a domain is not in
+                    use, but not a 100% guarantee. Final confirmation is with the registrar.</p>
                 <ul id="available-list" class="domain-list"></ul>
-            </div>
-            
+            </details>
+
             <p class="tip">Tip: Some of these domains may be parked or for sale and not actively in use.</p>
         </section>
 
@@ -85,7 +90,8 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; <span id="year"></span> Bird Corner Apps. <a href="https://www.birdcorner.app" target="_blank" rel="noopener">birdcorner.app</a></p>
+        <p>&copy; <span id="year"></span> Bird Corner Apps. <a href="https://www.birdcorner.app" target="_blank"
+                rel="noopener">birdcorner.app</a></p>
     </footer>
 
     <script type="module" src="js/app.js"></script>
@@ -98,4 +104,5 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
+
 </html>

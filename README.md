@@ -87,5 +87,5 @@ Usability, responsive layout, and cross-browser checks.
 * [Random lists](https://www.randomlists.com/team-names)
 * [Shopify](https://www.shopify.com/tools/business-name-generator)
 * [Design.com](https://www.design.com/business-name-generator/)
-* [heyhey132 Reddit user](https://businessnamegen.com/business-name-generator/)
+* [heyhey132](https://businessnamegen.com/business-name-generator/)
 * [Alex Völk](https://alexvoelk.de/generators/game-studio/)

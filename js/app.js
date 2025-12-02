@@ -17,14 +17,24 @@ const els = {
     progressText: document.getElementById('progress-text'),
     progressCount: document.getElementById('progress-count'),
     resultsSection: document.getElementById('results-section'),
-    verdict: document.getElementById('verdict'),
     takenList: document.getElementById('taken-list'),
     takenCount: document.getElementById('taken-count'),
     availableList: document.getElementById('available-list'),
     availableCount: document.getElementById('available-count'),
     historyList: document.getElementById('history-list'),
-    showAllHistoryBtn: document.getElementById('show-all-history')
+    showAllHistoryBtn: document.getElementById('show-all-history'),
+    registrarLinks: document.getElementById('registrar-links')
 };
+
+// Registrars
+const REGISTRARS = [
+    { name: 'Namecheap', url: 'https://www.namecheap.com/domains/registration/results/?domain=' },
+    { name: 'GoDaddy', url: 'https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=' },
+    { name: 'Porkbun', url: 'https://porkbun.com/checkout/search?q=' },
+    { name: 'Dynadot', url: 'https://www.dynadot.com/domain/search?domain=' },
+    { name: 'Name.com', url: 'https://www.name.com/domain/search/' },
+    { name: 'Hostinger', url: 'https://www.hostinger.com/domain-name-search?domain=' }
+];
 
 // Initialization
 async function init() {
@@ -92,9 +102,11 @@ async function startSearch() {
     els.availableList.innerHTML = '';
     els.takenCount.textContent = '0';
     els.availableCount.textContent = '0';
-    els.verdict.className = 'verdict';
-    els.verdict.textContent = '';
 
+    // Collapse Potentially Available by default
+    document.getElementById('available-group').open = false;
+
+    renderRegistrarLinks(baseName);
     addToHistory(baseName);
 
     let checkedCount = 0;
@@ -123,16 +135,18 @@ async function startSearch() {
             }
         });
 
-        updateProgress(checkedCount, total, baseName);
+        // Show the last domain checked in this batch for progress
+        const lastDomain = results[results.length - 1].domain;
+        updateProgress(checkedCount, total, lastDomain);
     }
 
-    finishSearch(takenCount, availableCount);
+    finishSearch();
 }
 
-function updateProgress(current, total, baseName) {
+function updateProgress(current, total, currentDomain) {
     const percent = (current / total) * 100;
     els.progressBar.style.width = `${percent}%`;
-    els.progressText.textContent = `Checking ${baseName}...`;
+    els.progressText.textContent = `Checking ${currentDomain}...`;
     els.progressCount.textContent = `${current}/${total}`;
 
     els.takenCount.textContent = document.getElementById('taken-list').children.length;
@@ -151,37 +165,35 @@ function addResultItem(domain, isAvailable) {
     if (isAvailable) {
         li.innerHTML = `
             <span class="domain-name">${domain}</span>
-            <span style="color: var(--success-color)">Available</span>
+            <span class="icon-check">✓</span>
         `;
         els.availableList.appendChild(li);
     } else {
         li.innerHTML = `
             <a href="https://${domain}" target="_blank" rel="noopener" class="domain-link">${domain}</a>
-            <span style="color: var(--danger-color)">Taken</span>
+            <span class="icon-cross">×</span>
         `;
         els.takenList.appendChild(li);
     }
 }
 
-function finishSearch(taken, available) {
+function finishSearch() {
     STATE.isChecking = false;
     els.input.disabled = false;
     els.searchBtn.disabled = false;
     els.progressSection.classList.add('hidden');
+}
 
-    // Verdict
-    const total = taken + available;
-
-    if (taken === 0) {
-        els.verdict.textContent = '✨ Wide Open (Greenfield)';
-        els.verdict.classList.add('greenfield');
-    } else if (taken < 10) {
-        els.verdict.textContent = '🤔 Mixed Availability';
-        els.verdict.classList.add('mixed');
-    } else {
-        els.verdict.textContent = '🔥 Very Crowded';
-        els.verdict.classList.add('crowded');
-    }
+function renderRegistrarLinks(baseName) {
+    els.registrarLinks.innerHTML = '';
+    REGISTRARS.forEach(reg => {
+        const a = document.createElement('a');
+        a.href = `${reg.url}${baseName}`;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = reg.name;
+        els.registrarLinks.appendChild(a);
+    });
 }
 
 // History Management

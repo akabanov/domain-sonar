@@ -152,3 +152,15 @@ efficient workflow.
 2. **Final Review:** Conduct a thorough review of the application against all
    requirements. Test for usability, responsiveness on different screen sizes,
    and cross-browser compatibility.
+
+## Extras
+
+### Random name generators
+
+Try random names generators from:
+
+* [Random lists](https://www.randomlists.com/team-names)
+* [Shopify](https://www.shopify.com/tools/business-name-generator)
+* [Design.com](https://www.design.com/business-name-generator/)
+* [heyhey132 Reddit user](https://businessnamegen.com/business-name-generator/)
+* [Alex Völk](https://alexvoelk.de/generators/game-studio/)

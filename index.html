@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taken Domain Sonar</title>
+    <meta name="description" content="Taken Domain Sonar is a domain name availability checker. Find a unique name for your new business, product, or project by scanning hundreds of TLDs.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icons/icon-192.png"> <!-- Placeholder, will need to generate icons -->
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <header class="app-bar">
+        <div class="app-bar-content">
+            <span class="app-icon">📡</span> <!-- Placeholder icon -->
+            <h1 class="app-title">Taken Domain Sonar</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>
+                The app is a domain name availability checker. Its core purpose is to solve a common and frustrating problem: finding a unique name for a new business, product, or project that isn't already taken online.
+            </p>
+            <p class="helper-text">
+                Struggling to come up with a name? Try these generators:
+                <a href="https://www.randomlists.com/team-names" target="_blank" rel="noopener">Random lists</a>,
+                <a href="https://www.shopify.com/tools/business-name-generator" target="_blank" rel="noopener">Shopify</a>,
+                <a href="https://www.design.com/business-name-generator/" target="_blank" rel="noopener">Design.com</a>.
+            </p>
+        </section>
+
+        <section class="search-section">
+            <div class="input-group">
+                <input type="text" id="domain-input" placeholder="Enter a name (e.g., birdcorner)" autocomplete="off" spellcheck="false">
+                <button id="search-btn" disabled>Check</button>
+            </div>
+            <div id="input-error" class="error-message hidden"></div>
+        </section>
+
+        <section id="progress-section" class="hidden">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <div class="progress-status">
+                <span id="progress-text">Checking...</span>
+                <span id="progress-count">0/0</span>
+            </div>
+        </section>
+
+        <section id="results-section" class="hidden">
+            <div id="verdict" class="verdict"></div>
+            
+            <div class="results-group">
+                <h3 class="group-title">Already In Use <span id="taken-count" class="count-badge">0</span></h3>
+                <ul id="taken-list" class="domain-list"></ul>
+            </div>
+
+            <div class="registrar-promo">
+                <p>Check pricing options at your favorite registrar:</p>
+                <div class="registrar-links">
+                    <a href="https://www.namecheap.com/" target="_blank" rel="noopener">Namecheap</a>
+                    <a href="https://www.godaddy.com/" target="_blank" rel="noopener">GoDaddy</a>
+                    <a href="https://porkbun.com/" target="_blank" rel="noopener">Porkbun</a>
+                    <a href="https://www.dynadot.com/" target="_blank" rel="noopener">Dynadot</a>
+                    <a href="https://www.name.com/" target="_blank" rel="noopener">Name.com</a>
+                </div>
+            </div>
+
+            <div class="results-group">
+                <h3 class="group-title">Potentially Available <span id="available-count" class="count-badge">0</span></h3>
+                <p class="disclaimer">Heads up: A 'Potentially Available' status is a good indicator a domain is not in use, but not a 100% guarantee. Final confirmation is with the registrar.</p>
+                <ul id="available-list" class="domain-list"></ul>
+            </div>
+            
+            <p class="tip">Tip: Some of these domains may be parked or for sale and not actively in use.</p>
+        </section>
+
+        <section id="history-section" class="history-section">
+            <h3>Recent Searches</h3>
+            <ul id="history-list" class="history-list"></ul>
+            <button id="show-all-history" class="text-btn hidden">Show all</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Bird Corner Apps. <a href="https://www.birdcorner.app" target="_blank" rel="noopener">birdcorner.app</a></p>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

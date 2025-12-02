@@ -1,0 +1,29 @@
+name: Update TLD List
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Run weekly on Sunday at midnight
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-tlds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run update script
+        run: node scripts/update_tlds.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add tlds.json
+          git commit -m "chore: update TLD list" || echo "No changes to commit"
+          git push

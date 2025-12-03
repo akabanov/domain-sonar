@@ -11,7 +11,7 @@ Load `tlds.json` from the app JavaScript code.
 ## App Layout
 
 Clean, utilitarian, minimalistic, single-column responsive layout.
-App icon and name in the app bar: "Taken Domain Sonar"
+App icon and name in the app bar: "Domain Sonar"
 SEO-optimized app description at the top (dense version from this readme).
 Static helper text: "Struggling to come up with a name? Try these generators:," with links referencing the [Random name generators](#random-name-generators) section below.
 Prominent, centered input field for the base name (e.g., `birdcorner`).

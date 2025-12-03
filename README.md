@@ -1,4 +1,4 @@
-# Taken Domain Sonar
+# Domain Sonar
 
 ## App description
 

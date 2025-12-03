@@ -225,7 +225,7 @@ function renderHistory(showAll = false) {
     els.historyList.innerHTML = '';
 
     if (STATE.history.length === 0) {
-        els.historyList.innerHTML = '<li style="padding: 1rem; color: var(--text-secondary); text-align: center;">No recent searches</li>';
+        els.historyList.innerHTML = '<li style="color: var(--text-secondary); text-align: start;">No recent searches</li>';
         els.showAllHistoryBtn.classList.add('hidden');
         return;
     }

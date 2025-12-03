@@ -1,5 +1,5 @@
 {
-  "name": "Taken Domain Sonar",
+  "name": "Domain Sonar",
   "short_name": "DomainSonar",
   "description": "Check domain availability across hundreds of TLDs.",
   "start_url": "/",

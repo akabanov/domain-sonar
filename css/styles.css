@@ -45,6 +45,7 @@ body {
 }
 
 .app-title {
+    margin-left: 0.8rem;
     font-size: 1.25rem;
     font-weight: 600;
 }
@@ -52,7 +53,7 @@ body {
 .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 2rem 0;
 }
 
 .intro {

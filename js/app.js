@@ -390,7 +390,7 @@ function renderHistory(showAll = false) {
             <span class="history-name">${item.name}</span>
             <div class="history-meta">
                 <span class="history-time">${date}</span>
-                <button class="delete-btn" aria-label="Delete">×</button>
+                <div class="delete-btn" aria-label="Delete"/>
             </div>
         `;
 

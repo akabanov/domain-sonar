@@ -332,16 +332,20 @@ details.results-group[open] > summary::before {
 }
 
 .delete-btn {
-    background: none;
+    background-color: var(--text-secondary);
+    mask-image: url(../icons/trash-can-regular-full.svg);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    width: 24px;
+    height: 24px;
     border: none;
-    color: var(--text-secondary);
     cursor: pointer;
-    font-size: 1.25rem;
     padding: 0 0.5rem;
 }
 
 .delete-btn:hover {
-    color: var(--danger-color);
+    background-color: var(--danger-color);
 }
 
 .text-btn {

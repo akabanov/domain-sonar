@@ -28,7 +28,7 @@ body {
 }
 
 p {
-    margin-bottom: 1rem;
+    margin-bottom: .7rem;
 }
 
 .app-bar {
@@ -263,7 +263,7 @@ details.results-group[open] > summary::before {
 
 .registrar-promo {
     background-color: var(--surface-color);
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
     text-align: center;
@@ -275,7 +275,7 @@ details.results-group[open] > summary::before {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: .7rem;
 }
 
 .registrar-links a {

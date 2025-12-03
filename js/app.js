@@ -4,6 +4,7 @@ const STATE = {
     tlds: [],
     isChecking: false,
     isStopped: false,
+    isHistoryExpanded: false,
     history: JSON.parse(localStorage.getItem('domainSonarHistory') || '[]'),
     abortController: null
 };
@@ -66,8 +67,8 @@ function setupEventListeners() {
     els.stopBtn.addEventListener('click', stopSearch);
 
     els.showAllHistoryBtn.addEventListener('click', () => {
-        renderHistory(true);
-        els.showAllHistoryBtn.classList.add('hidden');
+        STATE.isHistoryExpanded = true;
+        renderHistory();
     });
 
     // Analytics for generator links
@@ -369,8 +370,9 @@ function deleteHistoryItem(name) {
     renderHistory();
 }
 
-function renderHistory(showAll = false) {
+function renderHistory() {
     els.historyList.innerHTML = '';
+    const showAll = STATE.isHistoryExpanded;
 
     if (STATE.history.length === 0) {
         els.historyList.innerHTML = '<li style="color: var(--text-secondary); text-align: start;">No recent searches</li>';

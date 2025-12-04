@@ -110,10 +110,38 @@
     </section>
 </main>
 
+<dialog id="feedback-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Feedback</h2>
+            <button id="close-feedback" class="close-btn" aria-label="Close">&times;</button>
+        </div>
+        <form id="feedback-form" action="https://formspree.io/f/xrbnlpqq" method="POST">
+            <p class="modal-desc">
+                Have a suggestion or found a bug? Let us know!
+            </p>
+            <div class="form-group">
+                <label for="feedback-email">Email (optional)</label>
+                <input type="email" id="feedback-email" name="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="feedback-message">Message</label>
+                <textarea id="feedback-message" name="message" required placeholder="Your feedback..."
+                          rows="4"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Send Feedback</button>
+            </div>
+            <p id="feedback-status" class="status-message hidden"></p>
+        </form>
+    </div>
+</dialog>
+
 <footer class="footer">
     <p>&copy; <span id="year"></span>
         Alex Kabanov /
-        <a href="https://www.birdcorner.app" target="_blank" rel="noopener">Bird Corner Apps</a>
+        <a href="https://www.birdcorner.app" target="_blank" rel="noopener">Bird Corner Apps</a> /
+        <a href="#" id="feedback-link">Feedback</a>
     </p>
 </footer>
 

@@ -109,7 +109,12 @@ const els = {
     availableCount: document.getElementById('available-count'),
     historyList: document.getElementById('history-list'),
     showAllHistoryBtn: document.getElementById('show-all-history'),
-    registrarLinks: document.getElementById('registrar-links')
+    registrarLinks: document.getElementById('registrar-links'),
+    feedbackModal: document.getElementById('feedback-modal'),
+    feedbackLink: document.getElementById('feedback-link'),
+    closeFeedbackBtn: document.getElementById('close-feedback'),
+    feedbackForm: document.getElementById('feedback-form'),
+    feedbackStatus: document.getElementById('feedback-status')
 };
 
 // Registrars
@@ -162,6 +167,27 @@ function setupEventListeners() {
             }
         });
     });
+
+    // Feedback Modal
+    els.feedbackLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.feedbackModal.showModal();
+    });
+
+    els.closeFeedbackBtn.addEventListener('click', () => {
+        els.feedbackModal.close();
+    });
+
+    els.feedbackModal.addEventListener('click', (e) => {
+        const rect = els.feedbackModal.getBoundingClientRect();
+        const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+            rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+        if (!isInDialog) {
+            els.feedbackModal.close();
+        }
+    });
+
+    els.feedbackForm.addEventListener('submit', handleFeedbackSubmit);
 }
 
 function validateInput() {
@@ -522,6 +548,58 @@ function renderHistory() {
 
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+async function handleFeedbackSubmit(e) {
+    e.preventDefault();
+    const form = els.feedbackForm;
+    const status = els.feedbackStatus;
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    status.classList.add('hidden');
+    status.className = 'status-message hidden';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    const data = new FormData(form);
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            status.textContent = 'Thanks for your feedback!';
+            status.classList.add('success');
+            status.classList.remove('hidden');
+            form.reset();
+            setTimeout(() => {
+                els.feedbackModal.close();
+                status.classList.add('hidden');
+                status.classList.remove('success');
+            }, 2000);
+        } else {
+            const data = await response.json();
+            if (Object.hasOwn(data, 'errors')) {
+                status.textContent = data["errors"].map(error => error["message"]).join(", ");
+            } else {
+                status.textContent = 'Oops! There was a problem submitting your form';
+            }
+            status.classList.add('error');
+            status.classList.remove('hidden');
+        }
+    } catch (error) {
+        status.textContent = 'Oops! There was a problem submitting your form';
+        status.classList.add('error');
+        status.classList.remove('hidden');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Feedback';
+    }
 }
 
 init();

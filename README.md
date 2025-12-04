@@ -4,23 +4,43 @@
 
 ### What the App Does
 
-The app is a domain name availability checker. Its core purpose is to solve a common and frustrating problem: finding a unique name for a new business, product, or project that isn't already taken online.
+The app is a domain name availability checker. Its core purpose is to solve a
+common and frustrating problem: finding a unique name for a new business,
+product, or project that isn't already taken online.
 
-You give it a single name (like "**birdcorner**"), and it scans hundreds of internet domain extensions (called Top-Level Domains or TLDs) to see which ones are available and which are already in use, helping you see the entire brand landscape at a glance.
+You give it a single name (like "**birdcorner**"), and it scans hundreds of
+internet domain extensions (called Top-Level Domains or TLDs) to see which ones
+are available and which are already in use, helping you see the entire brand
+landscape at a glance.
 
 ### How It Works
 
 The app works through a simple three-step process, all from within your browser:
 
-1.  **Generate a List:** When you enter a base name, the app combines it with a built-in list of roughly 1,500 official TLDs (`.com`, `.app`, `.io`, `.store`, etc.). This creates a massive list of potential domain names to check (e.g., `birdcorner.app`, `birdcorner.org`, `birdcorner.dev`, and so on).
+1. **Generate a List:** When you enter a base name, the app combines it with a
+   built-in list of roughly 1,500 official TLDs (`.com`, `.app`, `.io`,
+   `.store`, etc.). This creates a massive list of potential domain names to
+   check (e.g., `birdcorner.app`, `birdcorner.org`, `birdcorner.dev`, and so
+   on).
 
-2.  **Query DNS Servers:** The app doesn't actually try to *visit* each website. Instead, it uses a technology called **DNS-over-HTTPS (DoH)**. It sends a tiny, secure query to a public DNS server (like Google's or Cloudflare's) for each domain on its list. This is like asking a phone book for the internet: "Is there an entry for `birdcorner.app`?"
+2. **Query DNS Servers:** The app doesn't actually try to *visit* each website.
+   Instead, it uses a technology called **DNS-over-HTTPS (DoH)**. It sends a
+   tiny, secure query to a public DNS server (like Google's or Cloudflare's) for
+   each domain on its list. This is like asking a phone book for the internet: "
+   Is there an entry for `birdcorner.app`?"
 
-3.  **Interpret the Results:**
-  *   If the DNS server responds with an IP address, it means the domain is registered and active. The app sorts this into the "**Already In Use**" list.
-  *   If the DNS server responds with an error (for example, "NXDOMAIN" or "non-existent domain"), it means there's no record of that domain. This is a strong signal that it's unregistered, and the app sorts it into the "**Potentially Available**" list.
+3. **Interpret the Results:**
 
-To avoid getting blocked, the app automatically throttles its own requests, adding a small delay between each check and rotating between different DoH providers.
+* If the DNS server responds with an IP address, it means the domain is
+  registered and active. The app sorts this into the "**Already In Use**" list.
+* If the DNS server responds with an error (for example, "NXDOMAIN" or "
+  non-existent domain"), it means there's no record of that domain. This is a
+  strong signal that it's unregistered, and the app sorts it into the "*
+  *Potentially Available**" list.
+
+To avoid getting blocked, the app automatically throttles its own requests,
+adding a small delay between each check and rotating between different DoH
+providers.
 
 ### Practical Use Cases:
 

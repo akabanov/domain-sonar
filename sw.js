@@ -1,4 +1,4 @@
-const CACHE_NAME = 'domain-sonar-v1';
+const CACHE_NAME = 'domain-sonar-v2';
 const ASSETS = [
     '/',
     '/index.html',

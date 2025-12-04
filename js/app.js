@@ -321,9 +321,26 @@ function addResultItem(domain, isAvailable) {
         rightSideDiv.innerHTML = `<span class="icon-cross">×</span>`;
 
         const link = li.querySelector('.domain-link');
-        link.addEventListener('click', () => {
+        // Remove specific link listener as we will handle it on the card level
+        // But we keep the link for accessibility and standard behavior
+
+        // Make the whole card clickable
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', (e) => {
+            // Don't trigger if clicking the info button
+            if (e.target.closest('.info-btn')) return;
+
+            // If clicking the link directly, let it handle the navigation (default behavior)
+            // But we still want to track the event.
+            // If clicking elsewhere on the card, we need to open the link manually.
+
             if (typeof gtag === 'function') {
                 gtag('event', 'domain_card_click', {domain: domain, status: 'taken'});
+            }
+
+            // If not clicking the link (e.g. clicking the card background), open it
+            if (!e.target.closest('.domain-link')) {
+                window.open(`https://${domain}`, '_blank');
             }
         });
     }
@@ -352,6 +369,9 @@ function addResultItem(domain, isAvailable) {
 }
 
 function renderBulkOpenLink(domains) {
+    // Don't show bulk open on mobile devices as they often block multiple popups
+    if (isMobile()) return;
+
     const li = document.createElement('li');
     li.className = 'bulk-open-item';
 
@@ -498,6 +518,10 @@ function renderHistory() {
     } else {
         els.showAllHistoryBtn.classList.add('hidden');
     }
+}
+
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 init();

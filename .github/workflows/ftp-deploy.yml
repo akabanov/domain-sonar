@@ -11,8 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get latest code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
+      - name: Add timestamp to JS/HTML file versions
+        run: |
+          TIMESTAMP=$(date +%s)
+          echo "Applying timestamp: $TIMESTAMP to .js and .html files"
+          find . -type f \( -name "*.js" -o -name "*.html" \) -print0 | while IFS= read -r -d $'\0' FILENAME; do
+            echo "Processing $FILENAME"
+            sed -i "s/\\?v=/\\?v=$TIMESTAMP/g" "$FILENAME"
+          done
+
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

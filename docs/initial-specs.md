@@ -16,7 +16,7 @@ SEO-optimized app description at the top (dense version from this readme).
 Static helper text: "Struggling to come up with a name? Try these generators:," with links referencing the [Random name generators](#random-name-generators) section below.
 Prominent, centered input field for the base name (e.g., `birdcorner`).
 Inline input validation: disallow empty/invalid characters; show subtle error styling (e.g., soft red border).
-Footer: `© {current_year} Bird Corner Apps` linking to https://www.birdcorner.app.
+Footer: `© {current_year} BirdCorner Apps` linking to https://www.birdcorner.app.
 Subtle UI transitions for result appearance, hover states, and history expansion.
 
 ## Domain search implementation
